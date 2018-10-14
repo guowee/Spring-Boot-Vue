@@ -31,4 +31,9 @@ public class UserBallServiceImpl implements UserBallService {
         return userBallMapper.insertSelective(user);
     }
 
+    @Override
+    public long getCount() {
+        return userBallMapper.getCount();
+    }
+
 }

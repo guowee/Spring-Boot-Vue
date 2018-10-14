@@ -8,7 +8,7 @@
       <el-table-column
         fixed
         prop="id"
-        label="id"
+        label="item_id"
         width="100">
       </el-table-column>
       <el-table-column
@@ -19,6 +19,11 @@
       <el-table-column
         prop="nickname"
         label="nickname"
+        width="300">
+      </el-table-column>
+      <el-table-column
+        prop="email"
+        label="email"
         width="120">
       </el-table-column>
       <el-table-column
@@ -32,14 +37,25 @@
         width="100">
       </el-table-column>
       <el-table-column
-        prop="email"
-        label="email"
+        prop="score"
+        label="score"
         width="100">
       </el-table-column>
       <el-table-column
-        prop="create_date"
+        prop="wechatId"
+        label="wechat_id"
+        width="100">
+      </el-table-column>
+      <el-table-column
+        prop="createDate"
         label="create_date"
-        width="300"
+        width="180"
+        :formatter="formatter">
+      </el-table-column>
+      <el-table-column
+        prop="updateDate"
+        label="update_date"
+        width="180"
         :formatter="formatter">
       </el-table-column>
       <el-table-column
@@ -54,18 +70,20 @@
     <el-pagination class="pagination" layout="prev, pager, next" :total="total" :page-size="pageSize"
                    v-on:current-change="changePage">
     </el-pagination>
-    <Modal :dialogFormVisible="dialogFormVisible" :form="form" v-on:canclemodal="dialogVisible"></Modal>
+    <d-b-modal :dialogFormVisible="dialogFormVisible" :form="form" v-on:canclemodal="dialogVisible"></d-b-modal>
   </div>
+
 </template>
-<script type="text/ecmascript-6">
-  import Modal from './Modal.vue'
+
+<script>
+  import Bus from '../eventBus'
+  import DBModal from './DBModal.vue'
 
   export default {
-    name: 'Table',
     data () {
       return {
         tableData: [],
-        apiUrl: '/api/user/query/',
+        apiUrl: '/api/user/all',
         total: 0,
         pageSize: 10,
         currentPage: 1,
@@ -76,47 +94,60 @@
       }
     },
     components: {
-      Modal
+      DBModal
     },
     mounted () {
+      this.getTotal()
       this.getAllUserBall()
+      Bus.$on('filterResultData', (data) => {
+        this.tableData = data.results
+        this.total = data.total_pages
+        this.pageSize = data.count
+        this.email = data.email
+        this.sex = data.sex
+      })
     },
     methods: {
       dialogVisible: function () {
         this.dialogFormVisible = false
       },
-      getAllUserBall: function () {
-        this.$axios.get(this.apiUrl + 133, {
+
+      getTotal: function () {
+        this.$axios.get('/api/user/count', {
           params: {}
         }).then((response) => {
-          this.tableData = response.data[0]
-          console.log(response.data)
+          this.total = response.data
+        }).catch(function (response) {
+          console.log(response)
+        })
+      },
+      getAllUserBall: function () {
+        this.$axios.get(this.apiUrl, {
+          params: {
+            pageNum: this.currentPage,
+            pageSize: this.pageSize,
+          }
+        }).then((response) => {
+          this.tableData = response.data
         }).catch(function (response) {
           console.log(response)
         })
       },
       changePage: function (currentPage) {
         this.currentPage = currentPage
-        this.getCustomers()
+        this.getAllUserBall()
       },
       editItem: function (index, rows) {
-        this.dialogFormVisible = true
-        const itemId = rows[index].id
-        const idurl = this.apiUrl + itemId
-        this.$axios.get(idurl).then((response) => {
-          this.form = response.data
-        }).catch(function (response) {
-          console.log(response)
-        })
-      },
 
+      },
       formatter (row, column) {
-        let data = this.$moment(row.create_date, this.$moment.ISO_8601)
-        return data.format('YYYY-MM-DD')
+        let data = this.$moment(row.create_date)
+        return data.format('YYYY-MM-DD HH:mm:ss')
       },
     }
   }
 </script>
+
 <style>
   .table {
     margin-top: 30px;

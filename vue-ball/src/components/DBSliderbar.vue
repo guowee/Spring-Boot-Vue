@@ -1,16 +1,18 @@
 <template>
   <li class="el-menu-item is-active" style="">{{msg}}</li>
 </template>
-<script type="text/ecmascript-6">
+
+<script>
   export default {
-    name: 'Slidebar',
-    data () {
+    name: 'd-b-sliderbar',
+    data() {
       return {
         msg: 'Dashboard'
       }
     }
   }
 </script>
+
 <style>
   li {
     padding-left: 20px;

@@ -31,7 +31,6 @@
 </template>
 <script type="text/ecmascript-6">
   export default {
-    name: 'Modal',
     data () {
       return {
         formLabelWidth: '120px',

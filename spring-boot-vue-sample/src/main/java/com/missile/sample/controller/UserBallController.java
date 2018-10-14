@@ -4,11 +4,9 @@ package com.missile.sample.controller;
 import com.missile.sample.model.UserBall;
 import com.missile.sample.service.UserBallService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,9 +30,16 @@ public class UserBallController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/all/{pageNum}/{pageSize}", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
-    public List<UserBall> getAllUserBall(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<UserBall> getAllUserBall(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
         return userBallService.getAllUserBall(pageNum, pageSize);
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/count", method = RequestMethod.GET)
+    public long getCount() {
+        return userBallService.getCount();
     }
 
 

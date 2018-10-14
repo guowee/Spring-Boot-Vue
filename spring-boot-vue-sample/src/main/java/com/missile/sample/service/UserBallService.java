@@ -10,6 +10,8 @@ public interface UserBallService {
 
     int addUserBall(UserBall user);
 
+    long getCount();
+
     UserBall getUserBallById(Integer id);
 
     List<UserBall> getAllUserBall(int pageNum, int pageSize);

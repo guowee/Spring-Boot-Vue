@@ -9,6 +9,8 @@ public interface UserBallMapper {
 
     int insert(UserBall record);
 
+    long getCount();
+
     int insertSelective(UserBall record);
 
     UserBall selectByPrimaryKey(Integer id);

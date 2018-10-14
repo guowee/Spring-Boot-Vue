@@ -23,9 +23,11 @@
 
   </el-form>
 </template>
-<script type="text/ecmascript-6">
+
+<script>
+
   export default {
-    name: 'Filterinput',
+    name: 'd-b-filterinput',
     data () {
       return {
         type_options: [],
@@ -36,8 +38,14 @@
         formLabelWidth: '120px'
       }
     },
-    watch: {},
-    methods: {}
+    watch: {
+      'formInline.sex': 'filterResultData',
+      'formInline.email': 'filterResultData'
+    },
+    methods: {
+      selectDemo: function (params) {
 
+      },
+    }
   }
 </script>

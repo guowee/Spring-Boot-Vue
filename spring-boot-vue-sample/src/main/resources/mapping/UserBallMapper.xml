@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.missile.sample.mapper.UserBallMapper" >
-  <resultMap id="BaseResultMap" type="com.missile.sample.model.UserBall" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="passwd" property="passwd" jdbcType="VARCHAR" />
-    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
-    <result column="sex" property="sex" jdbcType="VARCHAR" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
-    <result column="wechat_id" property="wechatId" jdbcType="VARCHAR" />
-    <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="score" property="score" jdbcType="INTEGER" />
-    <result column="ulevel" property="ulevel" jdbcType="VARCHAR" />
-    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
-    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.missile.sample.mapper.UserBallMapper">
+    <resultMap id="BaseResultMap" type="com.missile.sample.model.UserBall">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="passwd" property="passwd" jdbcType="VARCHAR"/>
+        <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="avatar" property="avatar" jdbcType="VARCHAR"/>
+        <result column="wechat_id" property="wechatId" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="score" property="score" jdbcType="INTEGER"/>
+        <result column="ulevel" property="ulevel" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, name, passwd, nickname, sex, email, avatar, wechat_id, phone, score, ulevel, 
     create_date, update_date
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from user_ball
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectAllUserBall" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from user_ball
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from user_ball
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAllUserBall" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_ball
+    </select>
+    <select id="getCount" resultType="java.lang.Long">
+        select count(*) from user_ball
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_ball
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.missile.sample.model.UserBall" >
+    <insert id="insert" parameterType="com.missile.sample.model.UserBall">
     insert into user_ball (id, name, passwd, 
       nickname, sex, email, 
       avatar, wechat_id, phone, 
@@ -47,134 +50,134 @@
       #{score,jdbcType=INTEGER}, #{ulevel,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
       #{updateDate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.missile.sample.model.UserBall" >
-    insert into user_ball
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="passwd != null" >
-        passwd,
-      </if>
-      <if test="nickname != null" >
-        nickname,
-      </if>
-      <if test="sex != null" >
-        sex,
-      </if>
-      <if test="email != null" >
-        email,
-      </if>
-      <if test="avatar != null" >
-        avatar,
-      </if>
-      <if test="wechatId != null" >
-        wechat_id,
-      </if>
-      <if test="phone != null" >
-        phone,
-      </if>
-      <if test="score != null" >
-        score,
-      </if>
-      <if test="ulevel != null" >
-        ulevel,
-      </if>
-      <if test="createDate != null" >
-        create_date,
-      </if>
-      <if test="updateDate != null" >
-        update_date,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="passwd != null" >
-        #{passwd,jdbcType=VARCHAR},
-      </if>
-      <if test="nickname != null" >
-        #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null" >
-        #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null" >
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="avatar != null" >
-        #{avatar,jdbcType=VARCHAR},
-      </if>
-      <if test="wechatId != null" >
-        #{wechatId,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null" >
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="score != null" >
-        #{score,jdbcType=INTEGER},
-      </if>
-      <if test="ulevel != null" >
-        #{ulevel,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null" >
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null" >
-        #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.missile.sample.model.UserBall" >
-    update user_ball
-    <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="passwd != null" >
-        passwd = #{passwd,jdbcType=VARCHAR},
-      </if>
-      <if test="nickname != null" >
-        nickname = #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null" >
-        sex = #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null" >
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="avatar != null" >
-        avatar = #{avatar,jdbcType=VARCHAR},
-      </if>
-      <if test="wechatId != null" >
-        wechat_id = #{wechatId,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null" >
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="score != null" >
-        score = #{score,jdbcType=INTEGER},
-      </if>
-      <if test="ulevel != null" >
-        ulevel = #{ulevel,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null" >
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null" >
-        update_date = #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.missile.sample.model.UserBall" >
+    <insert id="insertSelective" parameterType="com.missile.sample.model.UserBall">
+        insert into user_ball
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="passwd != null">
+                passwd,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="avatar != null">
+                avatar,
+            </if>
+            <if test="wechatId != null">
+                wechat_id,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="ulevel != null">
+                ulevel,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="passwd != null">
+                #{passwd,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null">
+                #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="wechatId != null">
+                #{wechatId,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="ulevel != null">
+                #{ulevel,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.missile.sample.model.UserBall">
+        update user_ball
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="passwd != null">
+                passwd = #{passwd,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="wechatId != null">
+                wechat_id = #{wechatId,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="score != null">
+                score = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="ulevel != null">
+                ulevel = #{ulevel,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.missile.sample.model.UserBall">
     update user_ball
     set name = #{name,jdbcType=VARCHAR},
       passwd = #{passwd,jdbcType=VARCHAR},
